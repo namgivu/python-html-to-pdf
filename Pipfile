@@ -5,6 +5,8 @@ verify_ssl = true
 
 [packages]
 pytest = "*"
+jinja2 = "*"
+pdfkit = "*"
 
 [requires]
 python_version = "3.6"
