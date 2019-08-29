@@ -3,6 +3,7 @@ import os
 import unittest
 import jinja2
 import pdfkit
+import textract
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__)) + '/..'
 TEMPLATE_HOME = f'{PROJECT_PATH}/fixture'
@@ -45,6 +46,15 @@ class Test(unittest.TestCase):
 
         # the testee
         pdfkit.from_file(html_file, pdf_file, options)
+        pdf_processed_file = textract.process(pdf_file)
+        content_pdf_file = pdf_processed_file.decode('utf-8')
+
+        var_1 = str(params['some_var1'])
+        var_2 = str(params['some_var2'])
+
 
         # assert the expected output
         assert os.path.isfile(pdf_file)
+        assert var_1 in content_pdf_file
+        assert var_2 in content_pdf_file
+
